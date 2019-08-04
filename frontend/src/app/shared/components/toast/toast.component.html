@@ -1,0 +1,27 @@
+<div style="position: relative;">
+  <div
+    style="position: fixed; top: 10vh; right: 2vw; z-index: 1000; width: 20vw"
+  >
+    <div
+      *ngFor="let toast of toasts"
+      class="{{ cssClass(toast) }} alert-dismissable"
+    >
+      <div class="row">
+        <div class="col-2 my-auto">
+          <i
+            class="fas fa-2x"
+            [ngClass]="{
+              'fa-check-circle': toast.type === 0,
+              'fa-exclamation-circle': toast.type === 1,
+              'fa-info-circle': toast.type === 2
+            }"
+          ></i>
+        </div>
+        <div class="col-8">{{ toast.message }}</div>
+        <a class="col" (click)="removeAlert(toast)"
+          ><i class="fas fa-times close-btn"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+</div>

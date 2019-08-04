@@ -1,0 +1,67 @@
+<div class="col-2"></div>
+<div class="container my-5 pt-5 pb-3 col-10 mr-5">
+  <button
+    *ngIf="isAdmin"
+    class="btn btn-success btn-lg btn-circle floating-right shadow"
+    [routerLink]="['/sprintsNew']"
+  >
+    <i class="fas fa-plus"></i>
+  </button>
+  <table class="table table-hover">
+    <thead class="thead bg-primary text-white">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Subtasks</th>
+        <th>Closed</th>
+        <th>Created By</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let sprint of sprints; index as i">
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>
+          {{
+            sprint.name.length > 30
+              ? (sprint.name | slice: 0:29) + "..."
+              : sprint.name
+          }}
+        </td>
+        <td *ngIf="sprint.subtasks.length">
+          <p *ngFor="let task of sprint.subtasks">
+            {{
+              task.name?.length > 55
+                ? (task.name | slice: 0:54) + "..."
+                : task.name
+            }}
+          </p>
+        </td>
+        <td *ngIf="!sprint.subtasks.length">none</td>
+        <td>{{ sprint.isClosed }}</td>
+        <td>
+          {{
+            sprint.createdBy.name.length > 15
+              ? (sprint.createdBy.name | slice: 0:14) + "..."
+              : sprint.createdBy.name
+          }}
+        </td>
+        <td class="text-center align-middle">
+          <button
+            class="btn btn-info btn-circle"
+            [routerLink]="['/sprints', sprint._id]"
+          >
+            <i class="fas fa-pen"></i>
+          </button>
+          <button
+            *ngIf="isAdmin"
+            class="btn btn-danger btn-circle ml-2"
+            (click)="deleteSprint(sprint._id)"
+          >
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

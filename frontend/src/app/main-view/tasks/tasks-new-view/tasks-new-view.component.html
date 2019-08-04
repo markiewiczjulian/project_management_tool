@@ -1,0 +1,117 @@
+<div class="col-5"></div>
+<div class="container my-5 pt-5 pb-3 col-5">
+  <div>
+    <h2>New Task</h2>
+    <hr />
+    <form #taskForm="ngForm" (ngSubmit)="addTask(taskForm)">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter name"
+          name="name"
+          required
+          minlength="4"
+          #name="ngModel"
+          ngModel
+        />
+        <div
+          *ngIf="name.errors && (name.dirty || name.touched)"
+          class="alert alert-danger"
+        >
+          <div [hidden]="!name.errors.required">
+            Name is required
+          </div>
+          <div [hidden]="!name.errors.minlength">
+            Name should be at least 4 characters long.
+          </div>
+        </div>
+      </div>
+      <div *ngIf="users" class="form-group">
+        <label for="assignedTo">Assigned To</label>
+        <select
+          type="text"
+          class="form-control"
+          placeholder="Assigned To"
+          name="assignedTo"
+          #assignedTo="ngModel"
+          ngModel
+        >
+          <option *ngFor="let user of users" [ngValue]="user._id">
+            {{ user.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          rows="3"
+          type="text"
+          class="form-control"
+          placeholder="Description"
+          #description="ngModel"
+          name="description"
+          ngModel
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select
+          class="form-control"
+          aria-describedby="statusHelp"
+          type="text"
+          class="form-control"
+          placeholder="Status"
+          #status="ngModel"
+          name="status"
+          ngModel
+        >
+          <option>none</option>
+          <option>to do</option>
+          <option>in progres</option>
+          <option>in review</option>
+          <option>done</option>
+        </select>
+        <small id="statusHelp" class="form-text text-muted"
+          >If you don't choose task status, the task will be given status
+          "none".</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="priority">Priority</label>
+        <select
+          class="form-control"
+          type="text"
+          class="form-control"
+          placeholder="Priority"
+          #priority="ngModel"
+          name="priority"
+          ngModel
+        >
+          <option>low</option>
+          <option>medium</option>
+          <option>high</option>
+          <option>highest</option>
+        </select>
+        <small id="emailHelp" class="form-text text-muted"
+          >If you don't choose priority, the task will be given priority
+          "medium".</small
+        >
+      </div>
+      <br />
+      <div class="row justify-content-end">
+        <button class="btn btn-success mr-4" type="button" (click)="goBack()">
+          Back
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary mr-4"
+          [disabled]="taskForm.pristine || taskForm.invalid"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

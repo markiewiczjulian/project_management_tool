@@ -1,0 +1,173 @@
+<div class="col-5"></div>
+<div class="container my-5 pt-5 pb-3 col-5">
+  <div *ngIf="project">
+    <h2>{{ project.name | uppercase }} Details</h2>
+    <hr />
+    <form #projectForm="ngForm" (ngSubmit)="editProject(projectForm)">
+      <div class="form-group">
+        <label for="id">Id</label>
+        <input
+          type="text"
+          class="form-control"
+          id="id"
+          placeholder="Enter id"
+          [(ngModel)]="project._id"
+          name="_id"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Enter name"
+          [(ngModel)]="project.name"
+          name="name"
+          minlength="4"
+          #name="ngModel"
+          required
+        />
+        <div
+          *ngIf="name.errors && (name.dirty || name.touched)"
+          class="alert alert-danger"
+        >
+          <div [hidden]="!name.errors.required">
+            Name is required
+          </div>
+          <div [hidden]="!name.errors.minlength">
+            Name should be at least 4 characters long.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="createDate">Create Date</label>
+        <input
+          type="text"
+          class="form-control"
+          id="createDate"
+          [(ngModel)]="project.createDate"
+          name="createDate"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <label for="createdBy">Created By</label>
+        <input
+          type="text"
+          class="form-control"
+          id="createdBy"
+          [(ngModel)]="project.createdBy.name"
+          name="createdBy"
+          disabled
+        />
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input
+          class="custom-control-input"
+          type="checkbox"
+          id="isClosed"
+          [(ngModel)]="project.isClosed"
+          name="isClosed"
+        />
+        <label class="custom-control-label" for="isClosed">Is Closed</label>
+      </div>
+      <h5 class="mt-5">
+        Sprints
+        <button
+          type="button"
+          class="btn btn-success btn-circle"
+          (click)="ngxSmartModalService.getModal('projectModal').open()"
+        >
+          <i class="fas fa-plus"></i>
+        </button>
+      </h5>
+      <table class="table table-hover mt-3">
+        <thead class="thead bg-primary text-white">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Is Closed</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="project.sprints.length; else elseBlock">
+          <tr *ngFor="let sprint of project.sprints; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ sprint.name }}</td>
+            <td>{{ sprint.isClosed }}</td>
+            <td class="text-center align-middle">
+              <button
+                type="button"
+                class="btn btn-danger btn-circle ml-2"
+                (click)="deleteSubSprint(project._id, sprint._id)"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <ng-template #elseBlock>
+          <tbody>
+            <tr>
+              <td>---</td>
+              <td>---</td>
+              <td>---</td>
+              <td>---</td>
+            </tr>
+          </tbody>
+        </ng-template>
+      </table>
+      <br />
+      <div class="row justify-content-end">
+        <button class="btn btn-success mr-4" [routerLink]="['/projects']">
+          Back
+        </button>
+        <button type="submit" class="btn btn-primary mr-4">
+          Save
+        </button>
+        <button class="btn btn-danger" (click)="deleteProject(project._id)">
+          Remove
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ngx-smart-modal #projectModal identifier="projectModal">
+  <h5>Sprints</h5>
+  <table class="table table-sm table-hover">
+    <thead class="thead bg-primary text-white">
+      <tr>
+        <th>Name</th>
+        <th>Is Closed</th>
+        <th>Created By</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sprint of sprints">
+        <td>
+          {{
+            sprint.name.length > 15
+              ? (sprint.name | slice: 0:14) + "..."
+              : sprint.name
+          }}
+        </td>
+        <td>{{ sprint.isClosed }}</td>
+        <td>{{ sprint.createdBy.name }}</td>
+        <td class="text-center align-middle">
+          <button
+            type="button"
+            class="btn btn-success btn-circle"
+            (click)="addSubSprint(project._id, sprint._id)"
+          >
+            <i class="fas fa-plus"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-primary" (click)="projectModal.close()">Close</button>
+</ngx-smart-modal>

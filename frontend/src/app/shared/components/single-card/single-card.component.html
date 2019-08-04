@@ -1,0 +1,34 @@
+<div class="card border-primary rounded" style="height: 8rem;">
+  <div class="card-header bg-primary text-white">
+    <div class="row">
+      <div class="col-10" [ngClass]="{ 'title-done': done }">
+        {{ name.length > 25 ? (name | slice: 0:24) + "..." : name }}
+      </div>
+      <div class="col-2">
+        <a [routerLink]="['/tasks', id]">
+          <i class="fas fa-pen text-white"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-text">
+      <div class="row">
+        <div class="col-2">
+          <i class="fas fa-lg pt-0 col-2" [ngClass]="checkPriority()"></i>
+        </div>
+        <div class="col-5"></div>
+        <div class="col-5 text-right">
+          <p *ngIf="assignedTo?.name; else elseBlock">
+            {{
+              assignedTo.name.length > 10
+                ? (assignedTo.name | slice: 0:9) + "..."
+                : assignedTo.name
+            }}
+          </p>
+          <ng-template class="" #elseBlock>no one</ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="col-2"></div>
+<div class="container my-5 pt-5 pb-3 col-10 mr-5">
+  <button
+    class="btn btn-success btn-lg btn-circle floating-right shadow"
+    [routerLink]="['/tasksNew']"
+  >
+    <i class="fas fa-plus"></i>
+  </button>
+  <table class="table table-hover">
+    <thead class="thead bg-primary text-white">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Assigned To</th>
+        <th>Created By</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let task of tasks; index as i">
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>
+          {{
+            task.name.length > 45
+              ? (task.name | slice: 0:44) + "..."
+              : task.name
+          }}
+        </td>
+        <td *ngIf="task.description">
+          {{
+            task.description?.length > 35
+              ? (task.description | slice: 0:34) + "..."
+              : task.description
+          }}
+        </td>
+        <td *ngIf="!task.description">none</td>
+        <td>{{ task.status }}</td>
+        <td>{{ task.priority }}</td>
+        <td *ngIf="task.assignedTo?.name">
+          {{
+            task.assignedTo?.name.length > 15
+              ? (task.assignedTo.name | slice: 0:14) + "..."
+              : task.assignedTo.name
+          }}
+        </td>
+        <td *ngIf="!task.assignedTo?.name">no one</td>
+        <td>
+          {{
+            task.createdBy.name.length > 15
+              ? (task.createdBy.name | slice: 0:14) + "..."
+              : task.createdBy.name
+          }}
+        </td>
+        <td class="text-center align-middle">
+          <button
+            class="btn btn-info btn-circle"
+            [routerLink]="['/tasks', task._id]"
+          >
+            <i class="fas fa-pen"></i>
+          </button>
+          <button
+            class="btn btn-danger btn-circle ml-2"
+            (click)="deleteTask(task._id)"
+          >
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,170 @@
+<div class="col-2"></div>
+<div class="container my-5 pt-5 col-10 mr-5">
+  <div class="btn-group dropup floating-right">
+    <button
+      type="button"
+      class="btn btn-success btn-lg btn-circle
+        shadow dropdown-toggle"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <i class="fas fa-plus"></i>
+    </button>
+    <div class="dropdown-menu">
+      <a
+        class="dropdown-item"
+        (click)="ngxSmartModalService.getModal('backlogModal').open()"
+        >Add existing</a
+      >
+      <a class="dropdown-item" [routerLink]="['/tasksNew']">Add new</a>
+    </div>
+  </div>
+  <div cdkDropListGroup>
+    <div class="my-container col-3">
+      <h2>To do</h2>
+
+      <div
+        cdkDropList
+        id="to do"
+        #toDoList="cdkDropList"
+        [cdkDropListData]="toDoArr"
+        class="my-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-single-card
+          id="my-box"
+          *ngFor="let item of toDoArr"
+          [id]="item._id"
+          [name]="item.name"
+          [status]="item.status"
+          [priority]="item.priority"
+          [assignedTo]="item.assignedTo"
+          [done]="false"
+          [cdkDragData]="item"
+          cdkDrag
+        ></app-single-card>
+      </div>
+    </div>
+
+    <div class="my-container col-3">
+      <h2>In progress</h2>
+      <div
+        cdkDropList
+        id="in progres"
+        #progresList="cdkDropList"
+        [cdkDropListData]="progresArr"
+        class="my-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-single-card
+          id="my-box"
+          *ngFor="let item of progresArr"
+          [id]="item._id"
+          [name]="item.name"
+          [status]="item.status"
+          [priority]="item.priority"
+          [assignedTo]="item.assignedTo"
+          [done]="false"
+          [cdkDragData]="item"
+          cdkDrag
+        ></app-single-card>
+      </div>
+    </div>
+
+    <div class="my-container col-3">
+      <h2>In review</h2>
+      <div
+        cdkDropList
+        id="in review"
+        #reviewList="cdkDropList"
+        [cdkDropListData]="reviewArr"
+        class="my-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-single-card
+          id="my-box"
+          *ngFor="let item of reviewArr"
+          [id]="item._id"
+          [name]="item.name"
+          [status]="item.status"
+          [priority]="item.priority"
+          [assignedTo]="item.assignedTo"
+          [done]="false"
+          [cdkDragData]="item"
+          cdkDrag
+        ></app-single-card>
+      </div>
+    </div>
+
+    <div class="my-container col-3">
+      <h2>Done</h2>
+      <div
+        cdkDropList
+        id="done"
+        #doneList="cdkDropList"
+        [cdkDropListData]="doneArr"
+        class="my-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-single-card
+          id="my-box"
+          *ngFor="let item of doneArr"
+          [id]="item._id"
+          [name]="item.name"
+          [status]="item.status"
+          [priority]="item.priority"
+          [assignedTo]="item.assignedTo"
+          [done]="true"
+          [cdkDragData]="item"
+          cdkDrag
+        >
+        </app-single-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-smart-modal #backlogModal identifier="backlogModal">
+  <h5>Backlog</h5>
+  <table class="table table-sm table-hover table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>Priority</th>
+        <th>Assigned To</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of noneArr">
+        <td>
+          {{
+            task.name.length > 15
+              ? (task.name | slice: 0:14) + "..."
+              : task.name
+          }}
+        </td>
+        <td>{{ task.priority }}</td>
+        <td *ngIf="task.assignedTo?.name">
+          {{
+            task.assignedTo.name.length > 15
+              ? (task.assignedTo.name | slice: 0:14) + "..."
+              : task.assignedTo.name
+          }}
+        </td>
+        <td *ngIf="!task.assignedTo?.name">no one</td>
+        <td class="text-center align-middle">
+          <button
+            type="button"
+            class="btn btn-success btn-circle"
+            (click)="changeTasksStatus(task, task._id, 'to do')"
+          >
+            <i class="fas fa-plus"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-primary" (click)="backlogModal.close()">Close</button>
+</ngx-smart-modal>
