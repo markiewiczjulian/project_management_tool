@@ -1,4 +1,4 @@
 {
     "jwtPrivateKey": "vidly_jwtPrivateKey",
-    "sendgridApiKey":"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"
+    "sendgridApiKey":"ENTER_YOUR_API_KEY"
 }
