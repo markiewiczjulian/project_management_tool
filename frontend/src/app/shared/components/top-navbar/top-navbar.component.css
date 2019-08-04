@@ -1,0 +1,11 @@
+nav .navbar-nav li a{
+  color: #f8f9fa !important;
+}
+
+nav .navbar-nav li a:hover{
+  color: #ffffff !important;
+}
+
+#kiwi:hover{
+  color: #ffffff !important;
+}

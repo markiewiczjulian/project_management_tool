@@ -1,0 +1,202 @@
+<div class="col-5"></div>
+<div class="container my-5 pt-5 pb-3 col-5">
+  <div *ngIf="task">
+    <h2>{{ task.name | uppercase }} Details</h2>
+    <hr />
+    <form #taskForm="ngForm" (ngSubmit)="editTask(taskForm)">
+      <div class="form-group">
+        <label for="id">Id</label>
+        <input
+          type="text"
+          class="form-control"
+          id="id"
+          placeholder="Enter id"
+          [(ngModel)]="task._id"
+          name="_id"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Enter name"
+          [(ngModel)]="task.name"
+          name="name"
+          minlength="4"
+          #name="ngModel"
+          required
+        />
+        <div
+          *ngIf="name.errors && (name.dirty || name.touched)"
+          class="alert alert-danger"
+        >
+          <div [hidden]="!name.errors.required">
+            Name is required
+          </div>
+          <div [hidden]="!name.errors.minlength">
+            Name should be at least 4 characters long.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="createDate">Create Date</label>
+        <input
+          type="text"
+          class="form-control"
+          id="createDate"
+          [(ngModel)]="task.createDate"
+          name="createDate"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <label for="createdBy">Created By</label>
+        <input
+          type="text"
+          class="form-control"
+          id="createdBy"
+          [(ngModel)]="task.createdBy.name"
+          name="createdBy"
+          disabled
+        />
+      </div>
+      <div *ngIf="task.assignedTo?.name; else assignBlock" class="form-group">
+        <label for="assignedTo">Assigned To</label>
+        <select
+          type="text"
+          class="form-control"
+          id="assignedTo"
+          placeholder="Assigned To"
+          [(ngModel)]="task.assignedTo._id"
+          name="assignedTo"
+        >
+          <option *ngFor="let user of users" [ngValue]="user._id">
+            {{ user.name }}
+          </option>
+        </select>
+      </div>
+      <ng-template #assignBlock>
+        <div class="form-group">
+          <label for="assignedTo">Assigned To</label>
+          <select
+            type="text"
+            class="form-control"
+            id="assignedTo"
+            placeholder="Assigned To"
+            [(ngModel)]="task.assignedTo"
+            name="assignedTo"
+          >
+            <option *ngFor="let user of users" [ngValue]="user._id">
+              {{ user.name }}
+            </option>
+          </select>
+        </div>
+      </ng-template>
+      <div class="form-group">
+        <label for="modificationDate">Modification Date</label>
+        <input
+          type="text"
+          class="form-control"
+          id="modificationDate"
+          placeholder="Modification Date"
+          [(ngModel)]="task.modificationDate"
+          name="modificationDate"
+          disabled
+        />
+      </div>
+      <div *ngIf="task.modifiedBy?.name; else modifiedBlock" class="form-group">
+        <label for="modifiedBy">Modified By</label>
+        <input
+          type="text"
+          class="form-control"
+          id="modifiedBy"
+          placeholder="Modified By"
+          [(ngModel)]="task.modifiedBy.name"
+          name="modifiedBy"
+          disabled
+        />
+      </div>
+      <ng-template #modifiedBlock>
+        <div class="form-group">
+          <label for="modifiedBy">Modified By</label>
+          <input
+            type="text"
+            class="form-control"
+            id="modifiedBy"
+            placeholder="Modified By"
+            [(ngModel)]="placeholder"
+            name="modifiedBy"
+            disabled
+          />
+        </div>
+      </ng-template>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          type="text"
+          rows="3"
+          class="form-control"
+          id="description"
+          placeholder="Description"
+          [(ngModel)]="task.description"
+          name="description"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select
+          class="form-control"
+          type="text"
+          class="form-control"
+          id="status"
+          placeholder="Status"
+          [(ngModel)]="task.status"
+          name="status"
+        >
+          <option>none</option>
+          <option>to do</option>
+          <option>in progres</option>
+          <option>in review</option>
+          <option>done</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="priority">Priority</label>
+        <select
+          class="form-control"
+          type="text"
+          class="form-control"
+          id="priority"
+          placeholder="Priority"
+          [(ngModel)]="task.priority"
+          name="priority"
+        >
+          <option>low</option>
+          <option>medium</option>
+          <option>high</option>
+          <option>highest</option>
+        </select>
+      </div>
+
+      <br />
+      <div class="row justify-content-end">
+        <button class="btn btn-success mr-4" type="button" (click)="goBack()">
+          Back
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary mr-4"
+          [disabled]="taskForm.pristine"
+        >
+          Save
+        </button>
+        <button class="btn btn-danger" (click)="deleteTask(task._id)">
+          Remove
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

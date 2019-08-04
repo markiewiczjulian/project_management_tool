@@ -1,0 +1,47 @@
+<div id="sidebar-wrapper">
+  <ul class="sidebar-nav my-4">
+    <li>
+      <a [routerLink]="['/home']" routerLinkActive="router-link-active"
+        ><i class="fas fa-columns mr-2 ml-3 py-3"></i>
+
+        <span class="d-none d-md-inline ml-0 ml-md-2">Board</span></a
+      >
+    </li>
+    <li *ngIf="isAdmin">
+      <a [routerLink]="['/projects']" routerLinkActive="router-link-active"
+        ><i class="fas fa-project-diagram mr-2 ml-3 py-3"></i>
+        <span class="d-none d-md-inline ml-0 ml-md-2">Projects</span></a
+      >
+    </li>
+    <li>
+      <a [routerLink]="['/sprints']" routerLinkActive="router-link-active"
+        ><i class="fas fa-running mr-2 ml-3 py-3"></i
+        ><span class="d-none d-md-inline ml-0 ml-md-2">Sprints</span></a
+      >
+    </li>
+    <li>
+      <a [routerLink]="['/tasks']" routerLinkActive="router-link-active"
+        ><i class="fas fa-tasks mr-2 ml-3 py-3"></i
+        ><span class="d-none d-md-inline ml-0 ml-md-2">Tasks</span></a
+      >
+    </li>
+    <li>
+      <a [routerLink]="['/statistics']" routerLinkActive="router-link-active"
+        ><i class="fas fa-chart-pie mr-2 ml-3 py-3"></i
+        ><span class="d-none d-md-inline ml-0 ml-md-2">Statistics</span></a
+      >
+    </li>
+    <li *ngIf="isAdmin">
+      <a [routerLink]="['/users']" routerLinkActive="router-link-active"
+        ><i class="fas fa-users mr-2 ml-3 py-3"></i
+        ><span class="d-none d-md-inline ml-0 ml-md-2">Users</span></a
+      >
+    </li>
+    <li>
+      <a [routerLink]="['/about']" routerLinkActive="router-link-active"
+        ><i class="fas fa-address-card mr-2 ml-3 py-3"></i
+        ><span class="d-none d-md-inline ml-0 ml-md-2">About</span></a
+      >
+    </li>
+  </ul>
+</div>

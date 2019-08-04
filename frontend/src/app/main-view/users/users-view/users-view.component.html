@@ -1,0 +1,51 @@
+<div class="col-2"></div>
+<div class="container my-5 pt-5 pb-3 col-10 mr-5">
+  <button
+    class="btn btn-success btn-lg btn-circle floating-right shadow"
+    [routerLink]="['/usersNew']"
+  >
+    <i class="fas fa-plus"></i>
+  </button>
+  <table class="table table-hover">
+    <thead class="thead bg-primary text-white">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Create Date</th>
+        <th>Admin</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let user of users; index as i">
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>
+          {{
+            user.name.length > 30
+              ? (user.name | slice: 0:29) + "..."
+              : user.name
+          }}
+        </td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.createDate }}</td>
+        <td>{{ user.isAdmin }}</td>
+        <td class="text-center align-middle">
+          <button
+            class="btn btn-info btn-circle"
+            [routerLink]="['/users', user._id]"
+          >
+            <i class="fas fa-pen"></i>
+          </button>
+          <button
+            *ngIf="!(this.currentUserId == user._id)"
+            class="btn btn-danger btn-circle ml-2"
+            (click)="deleteUser(user._id)"
+          >
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

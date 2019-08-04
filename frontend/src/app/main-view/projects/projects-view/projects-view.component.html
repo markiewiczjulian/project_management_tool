@@ -1,0 +1,65 @@
+<div class="col-2"></div>
+<div class="container my-5 pt-5 pb-3 col-10 mr-5">
+  <button
+    class="btn btn-success btn-lg btn-circle floating-right shadow"
+    [routerLink]="['/projectsNew']"
+  >
+    <i class="fas fa-plus"></i>
+  </button>
+  <table class="table table-hover">
+    <thead class="thead bg-primary text-white">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Sprints</th>
+        <th>Closed</th>
+        <th>Created By</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let project of projects; index as i">
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>
+          {{
+            project.name.length > 55
+              ? (project.name | slice: 0:54) + "..."
+              : project.name
+          }}
+        </td>
+        <td *ngIf="project.sprints.length">
+          <p *ngFor="let sprint of project.sprints">
+            {{
+              sprint.name.length > 45
+                ? (sprint.name | slice: 0:49) + "..."
+                : sprint.name
+            }}
+          </p>
+        </td>
+        <td *ngIf="!project.sprints.length">none</td>
+        <td>{{ project.isClosed }}</td>
+        <td>
+          {{
+            project.createdBy.name.length > 15
+              ? (project.createdBy.name | slice: 0:14) + "..."
+              : project.createdBy.name
+          }}
+        </td>
+        <td class="text-center align-middle">
+          <button
+            class="btn btn-info btn-circle"
+            [routerLink]="['/projects', project._id]"
+          >
+            <i class="fas fa-pen"></i>
+          </button>
+          <button
+            class="btn btn-danger btn-circle ml-2"
+            (click)="deleteProject(project._id)"
+          >
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

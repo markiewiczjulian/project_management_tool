@@ -1,0 +1,145 @@
+<div class="col-5"></div>
+<div class="container my-5 pt-5 pb-3 col-5">
+  <div *ngIf="user">
+    <h2>{{ user.name | uppercase }} Details</h2>
+    <hr />
+    <form #userForm="ngForm" (ngSubmit)="editUser(userForm)">
+      <div class="form-group">
+        <label for="id">Id</label>
+        <input
+          type="text"
+          class="form-control"
+          id="id"
+          placeholder="Enter id"
+          [(ngModel)]="user._id"
+          name="_id"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Enter name"
+          [(ngModel)]="user.name"
+          name="name"
+          #name="ngModel"
+          minlength="4"
+          required
+        />
+        <div
+          *ngIf="name.errors && (name.dirty || name.touched)"
+          class="alert alert-danger"
+        >
+          <div [hidden]="!name.errors.required">
+            Name is required
+          </div>
+          <div [hidden]="!name.errors.minlength">
+            Name should be at least 4 characters long.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          aria-describedby="emailHelp"
+          placeholder="Enter email"
+          [(ngModel)]="user.email"
+          name="email"
+          #email="ngModel"
+          pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+          required
+        />
+        <div
+          *ngIf="email.errors && (email.dirty || email.touched)"
+          class="alert alert-danger"
+        >
+          <div [hidden]="!email.errors.required">
+            Email is required
+          </div>
+          <div [hidden]="!email.errors.pattern">
+            Email is not matching pattern (should look like login@domain.com or
+            similar)
+          </div>
+        </div>
+        <small id="emailHelp" class="form-text text-muted"
+          >Remember your email must be unique in our app (no one else can be
+          registred on this email).</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Enter password"
+          [(ngModel)]="user.password"
+          name="password"
+          #password="ngModel"
+          minlength="15"
+          required
+        />
+        <div
+          *ngIf="password.errors && (password.dirty || password.touched)"
+          class="alert alert-danger"
+        >
+          <div [hidden]="!password.errors.required">
+            Password is required
+          </div>
+          <div [hidden]="!password.errors.minlength">
+            Password should be at least 15 characters long.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="createDate">Create date</label>
+        <input
+          type="text"
+          class="form-control"
+          id="createDate"
+          placeholder="Create date"
+          [(ngModel)]="user.createDate"
+          name="createDate"
+          disabled
+        />
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input
+          class="custom-control-input"
+          type="checkbox"
+          id="isAdmin"
+          [(ngModel)]="user.isAdmin"
+          name="isAdmin"
+          [disabled]="!isAdmin || blockRemoving"
+        />
+        <label class="custom-control-label" for="isAdmin">Is Admin</label>
+      </div>
+      <br />
+      <div class="row justify-content-end">
+        <button class="btn btn-success mr-4" type="button" (click)="goBack()">
+          Back
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary mr-4"
+          [disabled]="userForm.pristine || userForm.invalid"
+        >
+          Save
+        </button>
+        <button
+          *ngIf="!blockRemoving"
+          class="btn btn-danger"
+          (click)="deleteUser(user._id)"
+        >
+          Remove
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

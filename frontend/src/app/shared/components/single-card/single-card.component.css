@@ -1,0 +1,17 @@
+.container {
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  align-items: center;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.title{
+  font-size: 18px;
+}
+
+.title-done{
+  text-decoration: line-through;
+}
