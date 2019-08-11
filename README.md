@@ -4,11 +4,11 @@ Web application in nodeJs, MongoDB, Express and Angular2 (mean stack). App shoul
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.9.
 
 ## Preparation
-User should (before serving application) generate SendGrid token (https://sendgrid.com/docs/ui/account-and-settings/api-keys/). And then place it inside YOUR_PROJECT_PATH/backend/config/default.json. This is essential for working registration of new users (all newly registred users are recieving authorization token which is send onto their email address using SendGrid).
-After this we should run npm run `npm install` command (in backend and frontend folders) which will install all missing dependencies.
+User should (before serving an application) generate SendGrid token (https://sendgrid.com/docs/ui/account-and-settings/api-keys/). And then place it inside YOUR_PROJECT_PATH/backend/config/default.json. This is essential for registration of new users (all newly registered users are receiving authorisation token which is sent into their email address using SendGrid).
+After this we should run `npm install` command (in backend and frontend folders) which will install all missing dependencies.
 
 ## Running application
-First, when present in backend folder run command `npm run`. Then you can type `ng serve` when inside frontend folder. Application should run on port `http://localhost:4200/`.
+First, when in backend folder run a command `npm start`. Then you can type `ng serve --open` when inside a frontend folder (`--open` flag should open a browser with proper address, but if this will not work, an address is displayed in terminal when running ng serve right at the beginning).
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
