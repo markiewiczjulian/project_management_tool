@@ -12,7 +12,7 @@ User should (before serving an application) generate SendGrid token (https://sen
 After this we should run `npm install` command (in backend and frontend folders) which will install all missing dependencies.
 
 ## Running application
-First, when in backend folder run a command `npm start`. Then you can type `ng serve --open` when inside a frontend folder (`--open` flag should open a browser with proper address, but if this will not work, an address is displayed in terminal when running ng serve right at the beginning).
+First, when in backend folder run a command `npm start`. Then you can type `ng serve --open` when inside a frontend folder (`--open` flag should open a browser with a proper address, but if this will not work, the address is displayed in terminal when running ng serve right at the beginning).
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
